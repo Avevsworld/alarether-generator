@@ -1,0 +1,22 @@
+id: QUARTZ_ORE_FEATURE
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 1107
+  threshold: 16 * (1/256)
+
+locator:
+  type: GAUSSIAN_RANDOM
+  amount: 1
+  height:
+    min: 45
+    max: 180
+  standard-deviation: (180-(45))/6
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures: QUARTZ_ORE

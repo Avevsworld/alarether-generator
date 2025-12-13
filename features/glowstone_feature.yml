@@ -1,0 +1,22 @@
+id: GLOWSTONE_FEATURE
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 1109
+  threshold: 15 * (1/256)
+
+locator:
+  type: GAUSSIAN_RANDOM
+  amount: 1
+  height:
+    min: 45
+    max: 140
+  standard-deviation: (140-(45))/6
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures: GLOWSTONE

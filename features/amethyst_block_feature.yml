@@ -1,0 +1,22 @@
+id: AMETHYST_BLOCK_FEATURE
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 1108
+  threshold: 8 * (1/256)
+
+locator:
+  type: GAUSSIAN_RANDOM
+  amount: 1
+  height:
+    min: 45
+    max: 170
+  standard-deviation: (170-(45))/6
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures: AMETHYST_BLOCK

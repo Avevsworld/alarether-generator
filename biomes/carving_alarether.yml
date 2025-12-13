@@ -1,0 +1,35 @@
+id: CARVING_ALARETHER
+type: BIOME
+abstract: true
+
+carving:
+  sampler:
+    dimensions: 3
+    type: EXPRESSION
+    variables:
+      carvingThreshold: 0.58        # Más alto = menos cuevas (ajústalo luego)
+      carvingMinHeight: -40
+      carvingMaxHeight: 160         # Sube a 200 si tus islas son muy altas
+      carvingCap: 1
+
+      spaghettiStrengthLarge: 0.59
+      spaghettiStrengthSmall: 0.57
+
+      simplex3:
+        dimensions: 3
+        type: FBM
+        octaves: 3
+        sampler:
+          type: OPEN_SIMPLEX_2
+          frequency: 0.02
+
+    expression: |
+      -carvingThreshold
+      + if(y<carvingMinHeight||y>carvingMaxHeight,0,
+        min(carvingCap,
+          max(
+            spaghettiStrengthLarge * ((-(|simplex3(x,y+0000,z)|+|simplex3(x,y+1000,z)|)/2)+1),
+            spaghettiStrengthSmall * ((-(|simplex3(x,y+2000,z)|+|simplex3(x,y+3000,z)|)/2)+1)
+          )
+        )
+      )

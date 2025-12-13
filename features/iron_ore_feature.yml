@@ -1,0 +1,22 @@
+id: IRON_ORE_FEATURE
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 1103
+  threshold: 38 * (1/256)
+
+locator:
+  type: GAUSSIAN_RANDOM
+  amount: 2
+  height:
+    min: 35
+    max: 210
+  standard-deviation: (210-(35))/6
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures: IRON_ORE

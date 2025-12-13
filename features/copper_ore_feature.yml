@@ -1,0 +1,22 @@
+id: COPPER_ORE_FEATURE
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 1102
+  threshold: 26 * (1/256)
+
+locator:
+  type: GAUSSIAN_RANDOM
+  amount: 2
+  height:
+    min: 35
+    max: 170
+  standard-deviation: (170-(35))/6
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures: COPPER_ORE

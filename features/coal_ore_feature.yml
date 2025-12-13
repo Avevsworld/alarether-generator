@@ -1,0 +1,22 @@
+id: COAL_ORE_FEATURE
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 1001
+  threshold: 35 * (1/256)
+
+locator:
+  type: GAUSSIAN_RANDOM
+  amount: 2
+  height:
+    min: 35
+    max: 200
+  standard-deviation: (200-(35))/6
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures: COAL_ORE

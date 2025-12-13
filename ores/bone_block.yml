@@ -1,0 +1,7 @@
+id: BONE_BLOCK
+type: ORE
+extends: ABSTRACT_ORE
+
+material: minecraft:bone_block
+
+size: 4

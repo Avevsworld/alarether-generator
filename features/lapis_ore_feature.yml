@@ -1,0 +1,22 @@
+id: LAPIS_ORE_FEATURE
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 1106
+  threshold: 10 * (1/256)
+
+locator:
+  type: GAUSSIAN_RANDOM
+  amount: 1
+  height:
+    min: 45
+    max: 160
+  standard-deviation: (160-(45))/6
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures: LAPIS_ORE

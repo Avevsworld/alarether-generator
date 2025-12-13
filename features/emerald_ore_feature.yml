@@ -1,0 +1,22 @@
+id: EMERALD_ORE_FEATURE
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 1105
+  threshold: 6 * (1/256)
+
+locator:
+  type: GAUSSIAN_RANDOM
+  amount: 1
+  height:
+    min: 70
+    max: 210
+  standard-deviation: (210-(70))/6
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures: EMERALD_ORE

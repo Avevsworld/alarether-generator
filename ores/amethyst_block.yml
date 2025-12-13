@@ -1,0 +1,7 @@
+id: AMETHYST_BLOCK
+type: ORE
+extends: ABSTRACT_ORE
+
+material: minecraft:amethyst_block
+
+size: 4

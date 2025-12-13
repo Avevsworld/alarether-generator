@@ -1,0 +1,47 @@
+id: AETHER_VEGETATION
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 13371337
+  threshold: 14 * (1/256)
+
+locator:
+  type: PATTERN
+  range:
+    min: -64
+    max: 318
+  pattern:
+    type: AND
+    patterns:
+      - type: MATCH_AIR
+        offset: 0
+      - type: OR
+        patterns:
+          - type: MATCH
+            block: minecraft:smooth_quartz
+            offset: -1
+          - type: MATCH
+            block: minecraft:calcite
+            offset: -1
+          - type: MATCH
+            block: minecraft:white_terracotta
+            offset: -1
+          - type: MATCH
+            block: minecraft:light_gray_concrete_powder
+            offset: -1
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures:
+    - aether_moss_carpet: 6
+    - tall_grass: 4
+    - aether_azalea: 2
+    - aether_flowering_azalea: 1
+    - aether_white_tulip: 2
+    - aether_fern: 2
+    - aether_lily_valley: 1
+    - blank: 10

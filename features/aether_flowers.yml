@@ -1,0 +1,41 @@
+id: AETHER_FLOWERS
+type: FEATURE
+
+distributor:
+  type: SAMPLER
+  sampler:
+    type: POSITIVE_WHITE_NOISE
+    salt: 32001
+  threshold: 70 * (1/1024)
+
+locator:
+  type: AND
+  locators:
+    - type: SURFACE
+      range: &range
+        min: 40
+        max: 180
+    - type: PATTERN
+      range: *range
+      pattern:
+        type: MATCH_SET
+        offset: -1
+        blocks:
+          - minecraft:smooth_quartz
+          - minecraft:calcite
+          - minecraft:white_terracotta
+          - minecraft:light_gray_concrete_powder
+
+structures:
+  distribution:
+    type: WHITE_NOISE
+    salt: 32002
+  structures:
+    # aquí está la clave: NO un único tulipán, sino lista ponderada
+    - BLOCK:minecraft:white_tulip: 3
+    - BLOCK:minecraft:azure_bluet: 3
+    - BLOCK:minecraft:oxeye_daisy: 2
+    - BLOCK:minecraft:lily_of_the_valley: 1
+    - BLOCK:minecraft:allium: 1
+    - BLOCK:minecraft:cornflower: 1
+    - blank: 10

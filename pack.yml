@@ -30,6 +30,8 @@ stages:
     type: FEATURE
   - id: flora
     type: FEATURE
+  - id: trees
+    type: FEATURE
 
 samplers:
   humidity:

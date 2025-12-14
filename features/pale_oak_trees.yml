@@ -1,36 +1,43 @@
 id: PALE_OAK_TREES
 type: FEATURE
 
+# Forma “default Terra”: grid espaciado para árboles
 distributor:
-  type: SAMPLER
-  sampler:
-    type: POSITIVE_WHITE_NOISE
-    salt: 90210
-  # bastante más alto que antes para que SE VEAN
-  threshold: 12 * (1/1024)
+  type: PADDED_GRID
+  width: 22
+  padding: 9
+  salt: 90210
 
 locator:
   type: AND
   locators:
-    - type: SURFACE
+    - type: TOP
       range: &range
-        min: 40
-        max: 180
+        min: -64
+        max: 318
     - type: PATTERN
       range: *range
       pattern:
         type: MATCH_SET
-        offset: -1
+        blocks:
+          - minecraft:air
+          - minecraft:snow
+        offset: 0
+    - type: PATTERN
+      range: *range
+      pattern:
+        type: MATCH_SET
         blocks:
           - minecraft:smooth_quartz
           - minecraft:calcite
           - minecraft:white_terracotta
           - minecraft:light_gray_concrete_powder
+        offset: -1
 
 structures:
   distribution:
-    type: CONSTANT
+    type: WHITE_NOISE
+    salt: 90211
   structures:
-    - pale_oak_tree_small: 3
-    - pale_oak_tree_large: 1
+    - pale_oak_tree_small: 1
     - blank: 10

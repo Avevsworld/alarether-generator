@@ -6,42 +6,46 @@ distributor:
   sampler:
     type: POSITIVE_WHITE_NOISE
     salt: 13371337
-  threshold: 14 * (1/256)
+  # densidad moderada (sube/baja esto)
+  threshold: 90 * (1/1024)
 
 locator:
-  type: PATTERN
-  range:
-    min: -64
-    max: 318
-  pattern:
-    type: AND
-    patterns:
-      - type: MATCH_AIR
+  type: AND
+  locators:
+    - type: TOP
+      range: &range
+        min: -64
+        max: 318
+    - type: PATTERN
+      range: *range
+      pattern:
+        type: MATCH_SET
+        blocks:
+          - minecraft:air
+          - minecraft:snow
         offset: 0
-      - type: OR
-        patterns:
-          - type: MATCH
-            block: minecraft:smooth_quartz
-            offset: -1
-          - type: MATCH
-            block: minecraft:calcite
-            offset: -1
-          - type: MATCH
-            block: minecraft:white_terracotta
-            offset: -1
-          - type: MATCH
-            block: minecraft:light_gray_concrete_powder
-            offset: -1
+    - type: PATTERN
+      range: *range
+      pattern:
+        type: MATCH_SET
+        blocks:
+          - minecraft:smooth_quartz
+          - minecraft:calcite
+          - minecraft:white_terracotta
+          - minecraft:light_gray_concrete_powder
+        offset: -1
 
 structures:
+  # AQUÍ estaba el bug: CONSTANT -> siempre lo mismo
   distribution:
-    type: CONSTANT
+    type: WHITE_NOISE
+    salt: 13371338
   structures:
     - aether_moss_carpet: 6
-    - tall_grass: 4
+    - tall_grass: 5
+    - aether_fern: 3
     - aether_azalea: 2
     - aether_flowering_azalea: 1
-    - aether_white_tulip: 2
-    - aether_fern: 2
     - aether_lily_valley: 1
-    - blank: 10
+    - aether_white_tulip: 2
+    - blank: 14

@@ -6,36 +6,31 @@ distributor:
   sampler:
     type: POSITIVE_WHITE_NOISE
     salt: 90210
-  threshold: 180 * (1/1024)
+  # bastante más alto que antes para que SE VEAN
+  threshold: 12 * (1/1024)
 
 locator:
-  type: PATTERN
-  range:
-    min: -64
-    max: 318
-  pattern:
-    type: AND
-    patterns:
-      - type: MATCH_AIR
-        offset: 0
-      - type: OR
-        patterns:
-          - type: MATCH
-            block: minecraft:smooth_quartz
-            offset: -1
-          - type: MATCH
-            block: minecraft:calcite
-            offset: -1
-          - type: MATCH
-            block: minecraft:white_terracotta
-            offset: -1
-          - type: MATCH
-            block: minecraft:light_gray_concrete_powder
-            offset: -1
+  type: AND
+  locators:
+    - type: SURFACE
+      range: &range
+        min: 40
+        max: 180
+    - type: PATTERN
+      range: *range
+      pattern:
+        type: MATCH_SET
+        offset: -1
+        blocks:
+          - minecraft:smooth_quartz
+          - minecraft:calcite
+          - minecraft:white_terracotta
+          - minecraft:light_gray_concrete_powder
 
 structures:
   distribution:
     type: CONSTANT
   structures:
-    - pale_oak_tree_small: 1
+    - pale_oak_tree_small: 3
+    - pale_oak_tree_large: 1
     - blank: 10

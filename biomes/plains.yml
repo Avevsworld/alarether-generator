@@ -55,6 +55,7 @@ features:
     - GLOWSTONE_FEATURE
     - BONE_BLOCK_FEATURE
 
-  flora:
+features:
+    - AETHER_GRASS
+    - AETHER_FLOWERS
     - PALE_OAK_TREES
-    - AETHER_VEGETATION

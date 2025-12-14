@@ -28,9 +28,9 @@ biomes:
 stages:
   - id: ores
     type: FEATURE
-  - id: flora
-    type: FEATURE
   - id: trees
+    type: FEATURE
+  - id: flora
     type: FEATURE
 
 samplers:

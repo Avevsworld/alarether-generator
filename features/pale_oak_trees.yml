@@ -4,8 +4,8 @@ type: FEATURE
 # Forma “default Terra”: grid espaciado para árboles
 distributor:
   type: PADDED_GRID
-  width: 22
-  padding: 9
+  width: 16
+  padding: 6
   salt: 90210
 
 locator:
@@ -40,4 +40,4 @@ structures:
     salt: 90211
   structures:
     - large_pale_oak_tree_procedural: 1
-    - blank: 10
+    - blank: 6

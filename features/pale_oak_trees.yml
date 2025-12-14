@@ -39,5 +39,5 @@ structures:
     type: WHITE_NOISE
     salt: 90211
   structures:
-    - pale_oak_tree_small: 1
+    - large_pale_oak_tree_procedural: 1
     - blank: 10

@@ -1,0 +1,37 @@
+// CHURCH spawn wrapper: evita que salga en islas pequeñas o colgando demasiado
+
+str b0 = getBlock(0, 0, 0);
+if(getBlock(0, 1, 0) != "minecraft:air") fail;
+
+// solo sobre tus bloques “Aether surface”
+if(
+  b0 != "minecraft:smooth_quartz" &&
+  b0 != "minecraft:calcite" &&
+  b0 != "minecraft:white_terracotta" &&
+  b0 != "minecraft:light_gray_concrete_powder"
+) fail;
+
+// grosor mínimo bajo el punto
+if(getBlock(0, -1, 0) == "minecraft:air") fail;
+if(getBlock(0, -2, 0) == "minecraft:air") fail;
+
+// chequeo simple de “isla suficiente” bajo la zona (no perfecto, pero funciona MUY bien)
+num radius = 32;
+num step = 8;
+
+num total = 0;
+num solid = 0;
+
+for(num x = -radius; x <= radius; x = x + step) {
+  for(num z = -radius; z <= radius; z = z + step) {
+    total = total + 1;
+    if(getBlock(x, -1, z) != "minecraft:air") {
+      solid = solid + 1;
+    }
+  }
+}
+
+if((solid / total) < 0.70) fail;
+
+// coloca el schematic con rotación aleatoria
+structure(0, 0, 0, "church", "NONE", "CW_90", "CW_180", "CCW_90");

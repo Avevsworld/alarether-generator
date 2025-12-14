@@ -62,3 +62,8 @@ features:
 
   trees:
     - PALE_OAK_TREES
+    
+  structures:
+    - CHURCH_RUINS
+    - ANGEL_STATUE
+    - DEMON_STATUE

@@ -13,7 +13,7 @@ locator:
     - type: TOP
       range: 319
       pattern:
-        type: MATCH
+        type: MATCH_SET
         blocks:
           - GRASS_BLOCK
           - MOSS_BLOCK

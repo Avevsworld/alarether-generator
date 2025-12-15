@@ -1,60 +1,60 @@
-// Procedural ruined altar - small (safe, grounded on y=0 only)
+// Altar pequeño en ruinas (7x7 aprox). No excava: solo coloca si hay LAND debajo.
 
-num platformRadius = 6;
-num pillarHeightMin = 4;
-num pillarHeightMax = 8;
+num radius = 3;
 
-// Basic safety: only place if origin is LAND and above is AIR
-if(check(0, 0, 0) != "LAND") fail;
-if(check(0, 1, 0) != "AIR") fail;
+// Chequeo mínimo: centro con suelo
+if (check(0, -1, 0) != "LAND") {
+    fail;
+}
 
-// Platform (only replace LAND at y=0)
-for(x:-platformRadius,platformRadius) {
-    for(z:-platformRadius,platformRadius) {
-        if(x*x + z*z <= platformRadius*platformRadius) {
-            if(check(x, 0, z) == "LAND") {
-                num r = randomInt(0, 99);
-                if(r < 70) block(x, 0, z, "minecraft:smooth_quartz");
-                else if(r < 85) block(x, 0, z, "minecraft:quartz_bricks");
-                else block(x, 0, z, "minecraft:chiseled_quartz_block");
-            }
+// Plataforma base
+for (num x = -radius; x <= radius; x = x + 1) {
+    for (num z = -radius; z <= radius; z = z + 1) {
+
+        if (check(x, -1, z) != "LAND") {
+            continue;
         }
+        if (check(x, 0, z) != "AIR") {
+            continue;
+        }
+
+        num r = randomInt(6);
+        if (r == 0) { block(x, 0, z, "minecraft:stone_bricks"); }
+        if (r == 1) { block(x, 0, z, "minecraft:cracked_stone_bricks"); }
+        if (r == 2) { block(x, 0, z, "minecraft:mossy_stone_bricks"); }
+        if (r == 3) { block(x, 0, z, "minecraft:cobblestone"); }
+        if (r == 4) { block(x, 0, z, "minecraft:mossy_cobblestone"); }
+        if (r == 5) { block(x, 0, z, "minecraft:stone_bricks"); }
     }
 }
 
-// Four “broken pillars” around (spawn upwards into AIR)
-num px = 4;
-num pz = 4;
+// Altar central (2 bloques de alto)
+if (check(0, 1, 0) == "AIR") { block(0, 1, 0, "minecraft:chiseled_stone_bricks"); }
+if (check(0, 2, 0) == "AIR") { block(0, 2, 0, "minecraft:stone_brick_slab"); }
 
-for(i:0,3) {
-    num ox = (i == 0 || i == 1) ? px : -px;
-    num oz = (i == 0 || i == 2) ? pz : -pz;
+// 4 “pilares” rotos en esquinas internas
+num px1 = 2;
+num px2 = -2;
+num pz1 = 2;
+num pz2 = -2;
 
-    if(check(ox, 0, oz) == "LAND" && check(ox, 1, oz) == "AIR") {
-        num h = randomInt(pillarHeightMin, pillarHeightMax);
+for (num p = 0; p < 4; p = p + 1) {
+    num x = (p < 2) ? px1 : px2;
+    num z = (p % 2 == 0) ? pz1 : pz2;
 
-        for(y:1,h) {
-            if(randomInt(0, 99) < 85) block(ox, y, oz, "minecraft:quartz_pillar");
-        }
-
-        // small cap / broken top
-        if(check(ox, h+1, oz) == "AIR" && randomInt(0, 99) < 60) {
-            block(ox, h+1, oz, "minecraft:quartz_block");
-        }
+    if (check(x, -1, z) != "LAND") {
+        continue;
     }
-}
 
-// Debris scatter (AIR-only placement above platform)
-for(k:0,35) {
-    num dx = randomInt(-platformRadius, platformRadius);
-    num dz = randomInt(-platformRadius, platformRadius);
+    num h = 2 + randomInt(4); // 2..5
 
-    if(dx*dx + dz*dz <= platformRadius*platformRadius) {
-        if(check(dx, 0, dz) == "LAND" && check(dx, 1, dz) == "AIR" && randomInt(0, 99) < 35) {
-            num rr = randomInt(0, 99);
-            if(rr < 40) block(dx, 1, dz, "minecraft:quartz_slab");
-            else if(rr < 70) block(dx, 1, dz, "minecraft:quartz_stairs");
-            else block(dx, 1, dz, "minecraft:smooth_quartz");
-        }
+    for (num y = 1; y <= h; y = y + 1) {
+        if (check(x, y, z) != "AIR") { break; }
+
+        num r = randomInt(4);
+        if (r == 0) { block(x, y, z, "minecraft:stone_bricks"); }
+        if (r == 1) { block(x, y, z, "minecraft:cracked_stone_bricks"); }
+        if (r == 2) { block(x, y, z, "minecraft:mossy_stone_bricks"); }
+        if (r == 3) { block(x, y, z, "minecraft:cobblestone"); }
     }
 }

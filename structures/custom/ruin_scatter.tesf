@@ -1,35 +1,28 @@
-// Small ruin scatter - safe, tiny “points of interest”
+// Scatter de escombros alrededor del punto de colocación.
+// Solo coloca si hay LAND debajo y AIR en el punto.
 
-num size = randomInt(3, 7);
+num pieces = 10 + randomInt(20); // 10..29
 
-// Base rubble (only replace LAND at y=0)
-for(x:-size,size) {
-    for(z:-size,size) {
-        if(check(x, 0, z) == "LAND") {
-            if(randomInt(0, 99) < 45) block(x, 0, z, "minecraft:mossy_cobblestone");
-            else if(randomInt(0, 99) < 50) block(x, 0, z, "minecraft:cobblestone");
-        }
+for (num i = 0; i < pieces; i = i + 1) {
+    num dx = -7 + randomInt(15); // -7..7
+    num dz = -7 + randomInt(15); // -7..7
+    num dy = randomInt(2);       // 0..1
 
-        // Above rubble (only into AIR)
-        if(check(x, 0, z) == "LAND" && check(x, 1, z) == "AIR") {
-            num r = randomInt(0, 99);
-            if(r < 10) block(x, 1, z, "minecraft:cobblestone_wall");
-            else if(r < 18) block(x, 1, z, "minecraft:stone_brick_slab");
-        }
+    // Necesitamos suelo debajo
+    if (check(dx, -1, dz) != "LAND") {
+        continue;
     }
-}
 
-// Chance of a broken arch/column
-if(randomInt(0, 99) < 35) {
-    num hx = randomInt(-size, size);
-    num hz = randomInt(-size, size);
-
-    // Only build if we’re on land
-    if(check(hx, 0, hz) == "LAND") {
-        num h = randomInt(3, 6);
-        for(y:1,h) {
-            if(randomInt(0, 99) < 80) block(hx, y, hz, "minecraft:stone_bricks");
-        }
-        if(check(hx, h+1, hz) == "AIR" && randomInt(0, 99) < 40) block(hx, h+1, hz, "minecraft:cracked_stone_bricks");
+    // Y aire donde vamos a poner el bloque
+    if (check(dx, dy, dz) != "AIR") {
+        continue;
     }
+
+    num r = randomInt(5);
+
+    if (r == 0) { block(dx, dy, dz, "minecraft:cobblestone"); }
+    if (r == 1) { block(dx, dy, dz, "minecraft:mossy_cobblestone"); }
+    if (r == 2) { block(dx, dy, dz, "minecraft:stone_bricks"); }
+    if (r == 3) { block(dx, dy, dz, "minecraft:cracked_stone_bricks"); }
+    if (r == 4) { block(dx, dy, dz, "minecraft:mossy_stone_bricks"); }
 }

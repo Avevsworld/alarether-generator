@@ -5,6 +5,7 @@ distributor:
   type: PADDED_GRID
   width: 240
   padding: 0
+  salt: 1337
 
 locator:
   type: TOP

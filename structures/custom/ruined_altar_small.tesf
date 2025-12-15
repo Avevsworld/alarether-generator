@@ -1,4 +1,4 @@
-// Altar pequeño en ruinas (7x7 aprox). No excava: solo coloca si hay LAND debajo.
+// Altar pequeño en ruinas (7x7). No excava: solo coloca si hay LAND debajo.
 
 num radius = 3;
 
@@ -32,29 +32,57 @@ for (num x = -radius; x <= radius; x = x + 1) {
 if (check(0, 1, 0) == "AIR") { block(0, 1, 0, "minecraft:chiseled_stone_bricks"); }
 if (check(0, 2, 0) == "AIR") { block(0, 2, 0, "minecraft:stone_brick_slab"); }
 
-// 4 “pilares” rotos en esquinas internas
-num px1 = 2;
-num px2 = -2;
-num pz1 = 2;
-num pz2 = -2;
+// 4 pilares rotos: (2,2), (2,-2), (-2,2), (-2,-2)
+num h;
 
-for (num p = 0; p < 4; p = p + 1) {
-    num x = (p < 2) ? px1 : px2;
-    num z = (p % 2 == 0) ? pz1 : pz2;
-
-    if (check(x, -1, z) != "LAND") {
-        continue;
-    }
-
-    num h = 2 + randomInt(4); // 2..5
-
+// Pilar (2,2)
+if (check(2, -1, 2) == "LAND") {
+    h = 2 + randomInt(4); // 2..5
     for (num y = 1; y <= h; y = y + 1) {
-        if (check(x, y, z) != "AIR") { break; }
-
+        if (check(2, y, 2) != "AIR") { break; }
         num r = randomInt(4);
-        if (r == 0) { block(x, y, z, "minecraft:stone_bricks"); }
-        if (r == 1) { block(x, y, z, "minecraft:cracked_stone_bricks"); }
-        if (r == 2) { block(x, y, z, "minecraft:mossy_stone_bricks"); }
-        if (r == 3) { block(x, y, z, "minecraft:cobblestone"); }
+        if (r == 0) { block(2, y, 2, "minecraft:stone_bricks"); }
+        if (r == 1) { block(2, y, 2, "minecraft:cracked_stone_bricks"); }
+        if (r == 2) { block(2, y, 2, "minecraft:mossy_stone_bricks"); }
+        if (r == 3) { block(2, y, 2, "minecraft:cobblestone"); }
+    }
+}
+
+// Pilar (2,-2)
+if (check(2, -1, -2) == "LAND") {
+    h = 2 + randomInt(4);
+    for (num y = 1; y <= h; y = y + 1) {
+        if (check(2, y, -2) != "AIR") { break; }
+        num r = randomInt(4);
+        if (r == 0) { block(2, y, -2, "minecraft:stone_bricks"); }
+        if (r == 1) { block(2, y, -2, "minecraft:cracked_stone_bricks"); }
+        if (r == 2) { block(2, y, -2, "minecraft:mossy_stone_bricks"); }
+        if (r == 3) { block(2, y, -2, "minecraft:cobblestone"); }
+    }
+}
+
+// Pilar (-2,2)
+if (check(-2, -1, 2) == "LAND") {
+    h = 2 + randomInt(4);
+    for (num y = 1; y <= h; y = y + 1) {
+        if (check(-2, y, 2) != "AIR") { break; }
+        num r = randomInt(4);
+        if (r == 0) { block(-2, y, 2, "minecraft:stone_bricks"); }
+        if (r == 1) { block(-2, y, 2, "minecraft:cracked_stone_bricks"); }
+        if (r == 2) { block(-2, y, 2, "minecraft:mossy_stone_bricks"); }
+        if (r == 3) { block(-2, y, 2, "minecraft:cobblestone"); }
+    }
+}
+
+// Pilar (-2,-2)
+if (check(-2, -1, -2) == "LAND") {
+    h = 2 + randomInt(4);
+    for (num y = 1; y <= h; y = y + 1) {
+        if (check(-2, y, -2) != "AIR") { break; }
+        num r = randomInt(4);
+        if (r == 0) { block(-2, y, -2, "minecraft:stone_bricks"); }
+        if (r == 1) { block(-2, y, -2, "minecraft:cracked_stone_bricks"); }
+        if (r == 2) { block(-2, y, -2, "minecraft:mossy_stone_bricks"); }
+        if (r == 3) { block(-2, y, -2, "minecraft:cobblestone"); }
     }
 }

@@ -1,0 +1,26 @@
+id: RUIN_SCATTER
+type: FEATURE
+
+distributor:
+  type: PADDED_GRID
+  width: 220
+  padding: 80
+  salt: 77331
+
+locator:
+  type: AND
+  locators:
+    - type: TOP
+      range: 319
+      pattern:
+        type: MATCH
+        blocks:
+          - GRASS_BLOCK
+          - MOSS_BLOCK
+          - DIRT
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures:
+    - ruin_scatter: 1

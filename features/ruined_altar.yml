@@ -1,0 +1,34 @@
+id: RUINED_ALTAR
+type: FEATURE
+
+distributor:
+  type: PADDED_GRID
+  width: 600
+  padding: 240
+  salt: 341923
+
+locator:
+  type: AND
+  locators:
+    - type: TOP
+      range: 319
+      pattern:
+        type: MATCH
+        blocks:
+          - GRASS_BLOCK
+          - MOSS_BLOCK
+          - DIRT
+
+    - type: PATTERN
+      range: 319
+      pattern:
+        type: MATCH
+        blocks:
+          - GRASS_BLOCK
+          - MOSS_BLOCK
+
+structures:
+  distribution:
+    type: CONSTANT
+  structures:
+    - ruined_altar_small: 1

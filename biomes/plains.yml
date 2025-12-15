@@ -62,3 +62,7 @@ features:
 
   trees:
     - PALE_OAK_TREES
+
+  structures:
+    - RUIN_SCATTER
+    - RUINED_ALTAR

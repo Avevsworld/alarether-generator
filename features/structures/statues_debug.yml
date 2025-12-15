@@ -1,0 +1,20 @@
+id: STATUES_DEBUG
+type: FEATURE
+
+distributor:
+  type: PADDED_GRID
+  width: 240
+  padding: 0
+
+locator:
+  type: TOP
+  range:
+    min: 40
+    max: 240
+
+structures:
+  distribution:
+    type: WHITE_NOISE
+  structures:
+    - angel_statue_grounded: 1
+    - demon_statue_grounded: 1

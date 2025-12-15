@@ -1,0 +1,34 @@
+id "angel_statue_grounded"
+
+const int R = 10;              # radio peana
+const int CLEAR_H = 140;       # altura que “limpiamos” por si hay hojas/árboles
+const int PILLAR_DEPTH = 120;  # hasta dónde bajamos pilares
+
+const string TOP = "minecraft:smooth_quartz";
+const string PILLAR = "minecraft:quartz_pillar[axis=y]";
+
+# 1) Peana + limpieza vertical
+for (int x = -R; confirm(x <= R); x = x + 1) {
+  for (int z = -R; confirm(z <= R); z = z + 1) {
+    if (x*x + z*z > R*R) continue;
+
+    setBlock(x, 0, z, TOP);
+
+    for (int y = 1; confirm(y <= CLEAR_H); y = y + 1) {
+      string b = getBlock(x, y, z);
+      if (b != "minecraft:air" && b != "minecraft:cave_air" && b != "minecraft:void_air") {
+        setBlock(x, y, z, "minecraft:air");
+      }
+    }
+
+    # 2) Pilares hacia abajo hasta tocar “algo” (no aire)
+    for (int y = -1; confirm(y >= -PILLAR_DEPTH); y = y - 1) {
+      string b2 = getBlock(x, y, z);
+      if (b2 != "minecraft:air" && b2 != "minecraft:cave_air" && b2 != "minecraft:void_air") break;
+      setBlock(x, y, z, PILLAR);
+    }
+  }
+}
+
+# 3) Pegar la schematic (ignora el aire del schematic para no borrar terreno)
+structure(0, 1, 0, "quartz_angel_statue", "NONE", true);

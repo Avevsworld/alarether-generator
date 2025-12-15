@@ -1,2 +1,5 @@
-# DEBUG: coloca la estatua ángel donde el feature decida.
-structure("quartz_angel_statue")
+// DEBUG: Angel statue grounded
+// Coloca el schematic "quartz_angel_statue" en el origen del feature.
+if(!structure(0, 0, 0, "quartz_angel_statue", "NONE", "CW_90", "CCW_90", "CW_180")) {
+    return;
+}

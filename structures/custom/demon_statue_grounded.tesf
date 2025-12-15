@@ -1,2 +1,5 @@
-# DEBUG: coloca la estatua demonio donde el feature decida.
-structure("quarz_girl_demonic_statue")
+// DEBUG: Demon statue grounded
+// Coloca el schematic "quarz_girl_demonic_statue" en el origen del feature.
+if(!structure(0, 0, 0, "quarz_girl_demonic_statue", "NONE", "CW_90", "CCW_90", "CW_180")) {
+    return;
+}

@@ -1,10 +1,10 @@
 // Small ruin scatter - safe, tiny “points of interest”
 
-int size = randomInt(3, 7);
+num size = randomInt(3, 7);
 
 // Base rubble (only replace LAND at y=0)
-for(x, -size, size) {
-    for(z, -size, size) {
+for(x:-size,size) {
+    for(z:-size,size) {
         if(check(x, 0, z) == "LAND") {
             if(randomInt(0, 99) < 45) block(x, 0, z, "minecraft:mossy_cobblestone");
             else if(randomInt(0, 99) < 50) block(x, 0, z, "minecraft:cobblestone");
@@ -12,7 +12,7 @@ for(x, -size, size) {
 
         // Above rubble (only into AIR)
         if(check(x, 0, z) == "LAND" && check(x, 1, z) == "AIR") {
-            int r = randomInt(0, 99);
+            num r = randomInt(0, 99);
             if(r < 10) block(x, 1, z, "minecraft:cobblestone_wall");
             else if(r < 18) block(x, 1, z, "minecraft:stone_brick_slab");
         }
@@ -21,13 +21,13 @@ for(x, -size, size) {
 
 // Chance of a broken arch/column
 if(randomInt(0, 99) < 35) {
-    int hx = randomInt(-size, size);
-    int hz = randomInt(-size, size);
+    num hx = randomInt(-size, size);
+    num hz = randomInt(-size, size);
 
     // Only build if we’re on land
     if(check(hx, 0, hz) == "LAND") {
-        int h = randomInt(3, 6);
-        for(y, 1, h) {
+        num h = randomInt(3, 6);
+        for(y:1,h) {
             if(randomInt(0, 99) < 80) block(hx, y, hz, "minecraft:stone_bricks");
         }
         if(check(hx, h+1, hz) == "AIR" && randomInt(0, 99) < 40) block(hx, h+1, hz, "minecraft:cracked_stone_bricks");

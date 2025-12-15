@@ -1,71 +1,60 @@
-// Ruined altar - small/medium structure, safe placement (no carving)
+// Procedural ruined altar - small (safe, grounded on y=0 only)
 
-int platformRadius = 6;
-int pillarHeightMin = 4;
-int pillarHeightMax = 8;
+num platformRadius = 6;
+num pillarHeightMin = 4;
+num pillarHeightMax = 8;
 
-int pillarH1 = randomInt(pillarHeightMin, pillarHeightMax);
-int pillarH2 = randomInt(pillarHeightMin, pillarHeightMax);
-int pillarH3 = randomInt(pillarHeightMin, pillarHeightMax);
-int pillarH4 = randomInt(pillarHeightMin, pillarHeightMax);
+// Basic safety: only place if origin is LAND and above is AIR
+if(check(0, 0, 0) != "LAND") fail;
+if(check(0, 1, 0) != "AIR") fail;
 
-// --- Platform: replace only LAND at y=0 (surface) ---
-for(x, -platformRadius, platformRadius) {
-    for(z, -platformRadius, platformRadius) {
-        // If this column has land at surface, replace that surface block with bricks.
-        if(check(x, 0, z) == "LAND") {
-            // Slightly irregular edge
-            if(abs(x) == platformRadius || abs(z) == platformRadius) {
-                if(randomInt(0, 99) < 55) block(x, 0, z, "minecraft:stone_bricks");
-            } else {
-                block(x, 0, z, "minecraft:stone_bricks");
+// Platform (only replace LAND at y=0)
+for(x:-platformRadius,platformRadius) {
+    for(z:-platformRadius,platformRadius) {
+        if(x*x + z*z <= platformRadius*platformRadius) {
+            if(check(x, 0, z) == "LAND") {
+                num r = randomInt(0, 99);
+                if(r < 70) block(x, 0, z, "minecraft:smooth_quartz");
+                else if(r < 85) block(x, 0, z, "minecraft:quartz_bricks");
+                else block(x, 0, z, "minecraft:chiseled_quartz_block");
             }
         }
     }
 }
 
-// --- Central altar (small dais) ---
-if(check(0, 0, 0) == "LAND") block(0, 0, 0, "minecraft:chiseled_stone_bricks");
-if(check(0, 1, 0) == "AIR")  block(0, 1, 0, "minecraft:torch");
+// Four “broken pillars” around (spawn upwards into AIR)
+num px = 4;
+num pz = 4;
 
-// Small ring
-for(x, -2, 2) {
-    for(z, -2, 2) {
-        if(abs(x) == 2 || abs(z) == 2) {
-            if(check(x, 1, z) == "AIR") {
-                if(randomInt(0, 99) < 70) block(x, 1, z, "minecraft:stone_brick_wall");
-            }
+for(i:0,3) {
+    num ox = (i == 0 || i == 1) ? px : -px;
+    num oz = (i == 0 || i == 2) ? pz : -pz;
+
+    if(check(ox, 0, oz) == "LAND" && check(ox, 1, oz) == "AIR") {
+        num h = randomInt(pillarHeightMin, pillarHeightMax);
+
+        for(y:1,h) {
+            if(randomInt(0, 99) < 85) block(ox, y, oz, "minecraft:quartz_pillar");
+        }
+
+        // small cap / broken top
+        if(check(ox, h+1, oz) == "AIR" && randomInt(0, 99) < 60) {
+            block(ox, h+1, oz, "minecraft:quartz_block");
         }
     }
 }
 
-// --- Broken pillars at corners ---
-int px = 4;
-int pz = 4;
+// Debris scatter (AIR-only placement above platform)
+for(k:0,35) {
+    num dx = randomInt(-platformRadius, platformRadius);
+    num dz = randomInt(-platformRadius, platformRadius);
 
-for(y, 1, pillarH1) {
-    if(randomInt(0, 99) < 85) block( px, y,  pz, "minecraft:quartz_pillar");
-}
-for(y, 1, pillarH2) {
-    if(randomInt(0, 99) < 85) block(-px, y,  pz, "minecraft:quartz_pillar");
-}
-for(y, 1, pillarH3) {
-    if(randomInt(0, 99) < 85) block( px, y, -pz, "minecraft:quartz_pillar");
-}
-for(y, 1, pillarH4) {
-    if(randomInt(0, 99) < 85) block(-px, y, -pz, "minecraft:quartz_pillar");
-}
-
-// --- Debris scatter (only into AIR above land) ---
-for(i, 0, 35) {
-    int dx = randomInt(-platformRadius, platformRadius);
-    int dz = randomInt(-platformRadius, platformRadius);
-
-    if(check(dx, 0, dz) == "LAND" && check(dx, 1, dz) == "AIR") {
-        int r = randomInt(0, 99);
-        if(r < 45) block(dx, 1, dz, "minecraft:stone_brick_slab");
-        else if(r < 70) block(dx, 1, dz, "minecraft:cracked_stone_bricks");
-        else if(r < 85) block(dx, 1, dz, "minecraft:mossy_stone_bricks");
-        else block(dx, 1, dz, "minecraft:cobblestone_wall");
+    if(dx*dx + dz*dz <= platformRadius*platformRadius) {
+        if(check(dx, 0, dz) == "LAND" && check(dx, 1, dz) == "AIR" && randomInt(0, 99) < 35) {
+            num rr = randomInt(0, 99);
+            if(rr < 40) block(dx, 1, dz, "minecraft:quartz_slab");
+            else if(rr < 70) block(dx, 1, dz, "minecraft:quartz_stairs");
+            else block(dx, 1, dz, "minecraft:smooth_quartz");
+        }
     }
 }
